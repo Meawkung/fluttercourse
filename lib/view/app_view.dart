@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_workshop/view/home_view.dart';
 import 'package:my_workshop/view/profile_view.dart';
 import 'package:my_workshop/view/shop_view.dart';
+import 'package:my_workshop/view/input_form_view.dart';
 
 class AppView extends StatefulWidget {
   const AppView({super.key});
@@ -33,6 +34,7 @@ class _AppViewState extends State<AppView> {
     HomeView(),
     ShopView(),
     ProfileView(),
+    input_form_view(),
   ];
 
   @override
@@ -49,7 +51,13 @@ class _AppViewState extends State<AppView> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => input_form_view(),
+                ),
+              );
+            },
             icon: Icon(Icons.add),
           ),
         ],

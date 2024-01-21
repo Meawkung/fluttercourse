@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import 'input_form_view.dart';
+
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
@@ -110,14 +112,20 @@ class HomeView extends StatelessWidget {
                                       icon: Icon(
                                         Icons.delete,
                                         color: Colors.red,
-                                        size: 15,
+                                        size: 20,
                                       ),
                                     ),
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => input_form_view(),
+                                          ),
+                                        );
+                                      },
                                       icon: Icon(
                                         Icons.edit,
-                                        size: 15,
+                                        size: 20,
                                       ),
                                     ),
                                   ],
