@@ -2,14 +2,30 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:my_workshop/provider/product_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'input_form_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
-  //Testing123
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
 
+class _HomeViewState extends State<HomeView> {
+
+  fetchProduct() async{
+    await context.read<ProductProvider>().getProducts();
+  }
+
+  @override
+  void initState() {
+    fetchProduct();
+    super.initState();
+  }
+  //Testing123
   @override
   Widget build(BuildContext context) {
     return Padding(
