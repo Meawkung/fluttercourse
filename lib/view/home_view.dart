@@ -49,7 +49,9 @@ class HomeView extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.primaries[Random().nextInt(Colors.primaries.length)].shade50,
+                  color: Colors
+                      .primaries[Random().nextInt(Colors.primaries.length)]
+                      .shade50,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.05),
@@ -65,17 +67,19 @@ class HomeView extends StatelessWidget {
                       flex: 1,
                       child: Center(
                         child: CachedNetworkImage(
-                          imageUrl: "https://static0.xdaimages.com/wordpress/wp-content/uploads/2023/09/iphone-15-pro.png",
-
-                          placeholder: (context, url) => CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Icon(Icons.error),
+                          imageUrl:
+                              "https://static0.xdaimages.com/wordpress/wp-content/uploads/2023/09/iphone-15-pro.png",
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                       ),
                     ),
                     Expanded(
                       flex: 2,
                       child: Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,14 +92,6 @@ class HomeView extends StatelessWidget {
                               ),
                             ),
                             Text("description"),
-<<<<<<< Updated upstream
-                            Text(
-                              "4300 บาท",
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
-=======
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -127,7 +123,6 @@ class HomeView extends StatelessWidget {
                                   ],
                                 )
                               ],
->>>>>>> Stashed changes
                             ),
                           ],
                         ),
