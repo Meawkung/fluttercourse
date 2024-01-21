@@ -1,10 +1,12 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:flutter/material.dart';
+import 'package:my_workshop/provider/product_provider.dart';
 import 'package:my_workshop/view/home_view.dart';
 import 'package:my_workshop/view/profile_view.dart';
 import 'package:my_workshop/view/shop_view.dart';
 import 'package:my_workshop/view/input_form_view.dart';
+import 'package:provider/provider.dart';
 
 class AppView extends StatefulWidget {
   const AppView({super.key});
@@ -52,6 +54,9 @@ class _AppViewState extends State<AppView> {
         actions: [
           IconButton(
             onPressed: () {
+              //ส่งค่า null ก่อน
+              context.read<ProductProvider>().setProductSelected(null);
+              // isUpdate = false;
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => input_form_view(),

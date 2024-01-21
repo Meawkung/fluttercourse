@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_workshop/provider/product_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:my_workshop/model/product.dart';
 
 import 'input_form_view.dart';
 
@@ -57,14 +58,15 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) => Container(
-                height: 150,
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(
-                  vertical: 4,
-                ),
+            child: Consumer<ProductProvider>(
+              builder: (context, provider, child) => ListView.builder(
+                itemCount: provider.products.length,
+                itemBuilder: (context, index) => Container(
+                  height: 160,
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 4,
+                  ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors
@@ -86,11 +88,13 @@ class _HomeViewState extends State<HomeView> {
                       child: Center(
                         child: CachedNetworkImage(
                           imageUrl:
-                              "https://static0.xdaimages.com/wordpress/wp-content/uploads/2023/09/iphone-15-pro.png",
+                          provider.products[index].imageUrl??"",
                           placeholder: (context, url) =>
                               CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
+                          height: double.infinity,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -103,18 +107,25 @@ class _HomeViewState extends State<HomeView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "iPhone 15 Pro max",
+                              provider.products[index].name??"",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
+                                color: Colors.black87,
                               ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            Text("description"),
+                            Text(
+                                provider.products[index].description??"",
+                            maxLines: 2,
+                            style: TextStyle(color: Colors.black45),
+                            overflow: TextOverflow.ellipsis,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "4300฿",
+                                  provider.products[index].price??"",
                                   style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
@@ -124,7 +135,9 @@ class _HomeViewState extends State<HomeView> {
                                 Row(
                                   children: [
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        _dialogBuilder(context, provider.products[index],);
+                                      },
                                       icon: Icon(
                                         Icons.delete,
                                         color: Colors.red,
@@ -133,6 +146,9 @@ class _HomeViewState extends State<HomeView> {
                                     ),
                                     IconButton(
                                       onPressed: () {
+                                        context.read<ProductProvider>().setProductSelected(
+                                            provider.products[index],
+                                        );
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(builder: (context) => input_form_view(),
@@ -157,8 +173,46 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-        ],
+          ),
+            ],
       ),
     );
   }
+}
+Future<void> _dialogBuilder(BuildContext context, Product product) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Basic dialog title'),
+        content: const Text(
+          'A dialog is a type of modal window that\n'
+              'appears in front of app content to\n'
+              'provide critical information, or prompt\n'
+              'for a decision to be made.',
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('No'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Yes'),
+            onPressed: () async {
+              await context.read<ProductProvider>().deleteProducts(product.id!);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
