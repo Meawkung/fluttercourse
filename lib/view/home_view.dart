@@ -88,12 +88,46 @@ class HomeView extends StatelessWidget {
                               ),
                             ),
                             Text("description"),
+<<<<<<< Updated upstream
                             Text(
                               "4300 บาท",
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
                               ),
+=======
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "4300฿",
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Colors.red,
+                                        size: 15,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.edit,
+                                        size: 15,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+>>>>>>> Stashed changes
                             ),
                           ],
                         ),
